@@ -1,5 +1,5 @@
 {
-    "name": "lg-markdown-it-katex",
+    "name": "@luogu-dev/markdown-it-katex",
     "version": "0.0.1",
     "description": "Fast math support for markdown-it with KaTeX",
     "main": "index.js",
