@@ -1,8 +1,10 @@
+# Changes done by the Luogu Dev Team
+
+As we use slightly different LaTeX standards, we modified the parser a bit, especially the part that checks if the LaTeX `$` delimeter is valid, to suit our standards.
+
 # markdown-it-katex
 
 Add Math to your Markdown
-
-[![Build Status](https://travis-ci.org/iktakahiro/markdown-it-katex.svg?branch=master)](https://travis-ci.org/iktakahiro/markdown-it-katex)
 
 [KaTeX](https://github.com/Khan/KaTeX) is a faster alternative to MathJax. This plugin makes it easy to support in your markdown.
 
