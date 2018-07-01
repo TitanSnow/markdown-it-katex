@@ -12,30 +12,11 @@ for rendering output.
 
 var katex = require('katex');
 
-// Test if potential opening or closing delimieter
-// Assumes that there is a "$" at state.src[pos]
+// Luogu Dev: always recognize as valid delim
 function isValidDelim(state, pos) {
-    var prevChar, nextChar,
-        max = state.posMax,
-        can_open = true,
-        can_close = true;
-
-    prevChar = pos > 0 ? state.src.charCodeAt(pos - 1) : -1;
-    nextChar = pos + 1 <= max ? state.src.charCodeAt(pos + 1) : -1;
-
-    // Check non-whitespace conditions for opening and closing, and
-    // check that closing delimeter isn't followed by a number
-    if (prevChar === 0x20/* " " */ || prevChar === 0x09/* \t */ ||
-            (nextChar >= 0x30/* "0" */ && nextChar <= 0x39/* "9" */)) {
-        can_close = false;
-    }
-    if (nextChar === 0x20/* " " */ || nextChar === 0x09/* \t */) {
-        can_open = false;
-    }
-
     return {
-        can_open: can_open,
-        can_close: can_close
+        can_open: true,
+        can_close: true
     };
 }
 
