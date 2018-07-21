@@ -150,14 +150,17 @@ module.exports = function math_plugin(md, options) {
         }
     };
 
-    var inlineRenderer = function(tokens, idx){
-        return katexInline(tokens[idx].content);
+    var inlineRenderer = function(tokens, idx, options, env, { sDom }){
+        const html = katexInline(tokens[idx].content);
+        sDom.openTag('span', { __html: html })
+        sDom.closeTag()
+        return sDom
     };
 
     var katexBlock = function(latex){
         options.displayMode = true;
         try{
-            return "<p>" + katex.renderToString(latex, options) + "</p>";
+            return katex.renderToString(latex, options);
         }
         catch(error){
             if(options.throwOnError){ console.log(error); }
@@ -165,8 +168,12 @@ module.exports = function math_plugin(md, options) {
         }
     }
 
-    var blockRenderer = function(tokens, idx){
-        return  katexBlock(tokens[idx].content) + '\n';
+    var blockRenderer = function(tokens, idx, options, env, { sDom }){
+        const html = katexBlock(tokens[idx].content);
+        sDom.openTag('p', { __html: html })
+        sDom.closeTag()
+        sDom.appendText('\n')
+        return sDom
     }
 
     md.inline.ruler.after('escape', 'math_inline', math_inline);
