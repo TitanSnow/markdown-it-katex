@@ -1,5 +1,5 @@
 {
-    "name": "@luogu-dev/markdown-it-katex",
+    "name": "markdown-it-v-katex",
     "version": "0.0.1",
     "description": "Fast math support for markdown-it with KaTeX",
     "main": "index.js",
@@ -9,7 +9,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+ssh://git@github.com:luogu-dev/markdown-it-katex.git"
+        "url": "git+https://github.com/TitanSnow/markdown-it-v-katex.git"
     },
     "keywords": [
         "markdown",
@@ -17,9 +17,10 @@
         "math",
         "LaTeX",
         "markdown-it-plugin",
-        "markdown-it"
+        "markdown-it",
+        "markdown-it-v-plugin"
     ],
-    "author": "Takahiro Ethan Ikeuchi @iktakahiro",
+    "author": "Takahiro Ethan Ikeuchi @iktakahiro TitanSnow TotoLin",
     "license": "MIT",
     "dependencies": {
         "katex": "^0.9.0"

@@ -1,3 +1,7 @@
+# markdown-it-v-katex
+
+A plugin that add math support to [markdown-it-v](https://github.com/TitanSnow/markdown-it-v) using KaTeX
+
 # Changes done by the Luogu Dev Team
 
 As we use slightly different LaTeX standards, we modified the parser a bit, especially the part that checks if the LaTeX `$` delimeter is valid, to suit our standards.
