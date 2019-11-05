@@ -159,6 +159,7 @@ module.exports = function math_plugin(md, options) {
         catch(error){
             if(options.throwOnError){ console.log(error); }
             return escapeHtml(latex);
+        }
     };
 
     var inlineRenderer = function(tokens, idx, options, env, { sDom }){
