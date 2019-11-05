@@ -121,6 +121,7 @@ function math_block(state, start, end, silent){
 
     }
 
+    if (next >= end) return false;
     state.line = next + 1;
 
     token = state.push('math_block', 'math', 0);
