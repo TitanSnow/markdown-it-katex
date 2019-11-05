@@ -139,6 +139,17 @@ module.exports = function math_plugin(md, options) {
 
     options = options || {};
 
+    var escapeHtml = function(html) {
+        var tagsToReplace = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;'
+        };
+        return html.replace(/[&<>]/g, function(tag) {
+            return tagsToReplace[tag] || tag;
+        });
+    };
+
     // set KaTeX as the renderer for markdown-it-simplemath
     var katexInline = function(latex){
         options.displayMode = false;
@@ -152,7 +163,9 @@ module.exports = function math_plugin(md, options) {
     };
 
     var inlineRenderer = function(tokens, idx, options, env, { sDom }){
-        const html = katexInline(tokens[idx].content);
+        var html = katexInline(tokens[idx].content)
+        if (html === tokens[idx].content) html = escapeHtml(html)
+
         sDom.openTag('span', { __html: html })
         sDom.closeTag()
         return sDom
@@ -170,7 +183,8 @@ module.exports = function math_plugin(md, options) {
     }
 
     var blockRenderer = function(tokens, idx, options, env, { sDom }){
-        const html = katexBlock(tokens[idx].content);
+        var html = katexBlock(tokens[idx].content);
+        if (html === tokens[idx].content) html = escapeHtml(html)
         sDom.openTag('p', { __html: html })
         sDom.closeTag()
         sDom.appendText('\n')
