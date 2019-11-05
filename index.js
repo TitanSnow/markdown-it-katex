@@ -158,13 +158,11 @@ module.exports = function math_plugin(md, options) {
         }
         catch(error){
             if(options.throwOnError){ console.log(error); }
-            return latex;
-        }
+            return escapeHtml(latex);
     };
 
     var inlineRenderer = function(tokens, idx, options, env, { sDom }){
         var html = katexInline(tokens[idx].content)
-        if (html === tokens[idx].content) html = escapeHtml(html)
 
         sDom.openTag('span', { __html: html })
         sDom.closeTag()
@@ -178,13 +176,12 @@ module.exports = function math_plugin(md, options) {
         }
         catch(error){
             if(options.throwOnError){ console.log(error); }
-            return latex;
+            return escapeHtml(latex);
         }
     }
 
     var blockRenderer = function(tokens, idx, options, env, { sDom }){
         var html = katexBlock(tokens[idx].content);
-        if (html === tokens[idx].content) html = escapeHtml(html)
         sDom.openTag('p', { __html: html })
         sDom.closeTag()
         sDom.appendText('\n')
