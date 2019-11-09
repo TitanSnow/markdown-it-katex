@@ -121,6 +121,7 @@ function math_block(state, start, end, silent){
 
     }
 
+    if (next >= end) return false;
     state.line = next + 1;
 
     token = state.push('math_block', 'math', 0);
@@ -138,6 +139,17 @@ module.exports = function math_plugin(md, options) {
 
     options = options || {};
 
+    var escapeHtml = function(html) {
+        var tagsToReplace = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;'
+        };
+        return html.replace(/[&<>]/g, function(tag) {
+            return tagsToReplace[tag] || tag;
+        });
+    };
+
     // set KaTeX as the renderer for markdown-it-simplemath
     var katexInline = function(latex){
         options.displayMode = false;
@@ -146,12 +158,13 @@ module.exports = function math_plugin(md, options) {
         }
         catch(error){
             if(options.throwOnError){ console.log(error); }
-            return latex;
+            return escapeHtml(latex);
         }
     };
 
     var inlineRenderer = function(tokens, idx, options, env, { sDom }){
-        const html = katexInline(tokens[idx].content);
+        var html = katexInline(tokens[idx].content)
+
         sDom.openTag('span', { __html: html })
         sDom.closeTag()
         return sDom
@@ -164,12 +177,12 @@ module.exports = function math_plugin(md, options) {
         }
         catch(error){
             if(options.throwOnError){ console.log(error); }
-            return latex;
+            return escapeHtml(latex);
         }
     }
 
     var blockRenderer = function(tokens, idx, options, env, { sDom }){
-        const html = katexBlock(tokens[idx].content);
+        var html = katexBlock(tokens[idx].content);
         sDom.openTag('p', { __html: html })
         sDom.closeTag()
         sDom.appendText('\n')
